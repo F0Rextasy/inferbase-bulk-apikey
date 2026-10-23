@@ -1,0 +1,34 @@
+{
+  "name": "inferbase-bulk-apikey",
+  "version": "1.0.0",
+  "description": "Bulk-create Inferbase (inferbase.ai) accounts with auto-generated API keys — an OpenAI-compatible endpoint (127 model ids, `auto` routing) with tool-calling, plus a 9Router connector.",
+  "license": "MIT",
+  "type": "commonjs",
+  "bin": {
+    "inferbase-bulk-apikey": "src/cli.js",
+    "inferbase-bulk-apikey-launcher": "src/launcher.js"
+  },
+  "main": "src/cli.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node src/launcher.js",
+    "mint": "node src/cli.js",
+    "9router": "node src/connect-9router.js",
+    "omniroute": "node src/connect-omniroute.js"
+  },
+  "keywords": [
+    "api-key",
+    "bulk",
+    "register",
+    "launcher",
+    "inferbase",
+    "apikey"
+  ],
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ]
+}
