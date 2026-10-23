@@ -11,7 +11,7 @@
 
 # inferbase-bulk-apikey
 
-**Crie contas em massa no Inferbase (inferbase.ai) com chaves de API geradas automaticamente — um endpoint compatível com OpenAI (127 ids de modelos, roteamento `auto`) com chamada de ferramentas, além de um conector 9Router.**
+**Crie em massa contas Inferbase (inferbase.ai) com chaves de API geradas automaticamente — um endpoint compatível com OpenAI (127 ids de modelos, roteamento `auto`) com chamada de ferramentas, além de um conector 9Router.**
 
 [![Node](https://img.shields.io/badge/Node-%E2%89%A518-3DA639?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org)
 [![Dependencies](https://img.shields.io/badge/dependencies-0-blue?style=for-the-badge)](#)
@@ -21,7 +21,7 @@
 [![OmniRoute](https://img.shields.io/badge/OmniRoute-connector-8B5CF6?style=for-the-badge)](#-connect-to-omniroute)
 [![X](https://img.shields.io/badge/X-%40bigbullapp-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/bigbullapp)
 
-[🛠 Início rápido](#-quick-start) · [🎁 Camada gratuita](#-free-tier--how-much-you-get) · [🤖 Modelos](#-models--all-127-of-them) · [🧪 Use a API](#-how-to-use-the-api) · [✅ Verificado](#-verified-working--every-key-is-tested) · [🧭 Como funciona](#-how-it-works) · [🔌 9Router](#-connect-to-9router) · [🔌 OmniRoute](#-connect-to-omniroute) · [⚙️ Opções](#️-cli-options) · [🛰️ Proxies](#️-behind-a-proxy) · [🐞 Problemas](#-issues)
+[⚡ Um comando](#-one-command) · [🛠 Início rápido](#-quick-start) · [🎁 Nível gratuito](#-free-tier--how-much-you-get) · [🤖 Modelos](#-models--all-127-of-them) · [🧪 Use a API](#-how-to-use-the-api) · [✅ Verificado](#-verified-working--every-key-is-tested) · [🧭 Como funciona](#-how-it-works) · [🔌 9Router](#-connect-to-9router) · [🔌 OmniRoute](#-connect-to-omniroute) · [⚙️ Opções](#️-cli-options) · [🛰️ Proxies](#️-behind-a-proxy) · [⚠️ Termos](#️-terms-and-account-risk) · [🐞 Problemas](#-issues)
 
 </div>
 
@@ -33,22 +33,22 @@
 
 ---
 
-## ✨ Por que isto existe
+## ✨ Por que isso existe
 
-O Inferbase é um gateway simples compatível com OpenAI (`https://api.inferbase.ai/v1`) cujo cadastro é um **registro protegido por Turnstile mais um link por e-mail**. Uma conta nova recebe **100 requisições por dia UTC** nos modelos próprios do Inferbase — o suficiente para executar uma carga de trabalho real, e o contador é reiniciado às **00:00 UTC** em vez de expirar. Uma conta carrega **uma chave** (`auto_scope: inferbase`, `rate_limit_rpm: 6`). A ferramenta controla um **Chrome real com interface gráfica** via CDP porque o widget da Cloudflare só é emitido ali, e não gasta nada em uma saída cujo widget nunca responde.
+Inferbase é um gateway simples compatível com OpenAI (`https://api.inferbase.ai/v1`) cujo cadastro é um **registro protegido por Turnstile mais um link por e-mail**. Uma conta nova recebe **100 requisições por dia UTC** nos modelos próprios do Inferbase — o suficiente para rodar uma carga de trabalho real, e o contador é reiniciado às **00:00 UTC** em vez de expirar. Uma conta carrega **uma chave** (`auto_scope: inferbase`, `rate_limit_rpm: 6`). A ferramenta controla um **Chrome real com interface gráfica** via CDP porque o widget da Cloudflare só é emitido ali, e não gasta nada em uma saída cujo widget nunca responde.
 
-## 🎁 Camada gratuita — quanto você recebe
+## 🎁 Nível gratuito — quanto você recebe
 
 | O quê | Valor |
 | --- | --- |
 | Franquia gratuita | **100 requisições por dia UTC por conta (organização)** nos modelos próprios do Inferbase |
 | Reinício | **00:00 UTC** — medido: um contador esgotado respondeu `402 Free plan limit: 100 requests per UTC day … all used` e a mesma chave respondeu `200` após o reinício |
 | Limites do plano (do provedor) | 5000 requisições/mês · 100 requisições gerenciadas/dia · $0.50/dia gerenciado |
-| Limite de taxa por chave | `rate_limit_rpm: 6` (retornado quando a chave é criada) |
+| Limite por chave | `rate_limit_rpm: 6` (retornado quando a chave é criada) |
 | Cartão / telefone | **nenhum** — nenhuma etapa de pagamento e nenhum número de telefone é solicitado |
 | Chave por conta | **1** (a ferramenta emite uma chave por conta) |
 
-> 💡 A camada gratuita é definida pelo Inferbase e pode mudar. Confira os números ao vivo em [inferbase.ai](https://inferbase.ai) — e deixe o próprio portão da ferramenta decidir:
+> 💡 O nível gratuito é definido pelo Inferbase e pode mudar. Confira os números atuais em [inferbase.ai](https://inferbase.ai) — e deixe o próprio gate da ferramenta decidir:
 
 ```bash
 node src/cli.js --verify-only     # every key in keys.txt is re-tested with a real chat call
@@ -58,14 +58,14 @@ node src/cli.js --verify-only     # every key in keys.txt is re-tested with a re
 
 O endpoint anuncia **127 ids**; `GET /v1/models` retorna exatamente o que a conta pode chamar, e `auto` roteia para um ativo (medido: `auto` respondeu como `qwen3-8-max`).
 
-| ID do modelo | observação |
+| ID do modelo | nota |
 | --- | --- |
-| `auto` | roteador — o padrão no qual a ferramenta faz o portão |
+| `auto` | roteador — o padrão no qual a ferramenta faz o gate |
 | `qwen3-8-max` | para o que `auto` resolveu nas execuções medidas |
 | `deepseek-v4-flash`, `deepseek-v4-pro` | chat, chamada de ferramentas verificada |
 | `meta-llama-3-1-8b-instruct`, `bytedance-seed-2-0-*` | mais rotas de texto |
 
-Ids de imagem (`bfl-flux-*`) e `deepseek-ocr-2` também estão listados, mas não são rotas de chat; o portão da ferramenta sempre usa `auto`.
+Ids de imagem (`bfl-flux-*`) e `deepseek-ocr-2` também estão listados, mas não são rotas de chat; o gate da ferramenta sempre usa `auto`.
 
 ## 🧪 Como usar a API
 
@@ -84,26 +84,39 @@ print(c.chat.completions.create(model="auto",
       messages=[{"role": "user", "content": "Say OK."}], max_tokens=16).choices[0].message.content)
 ```
 
+## ⚡ Um comando
+
+```bash
+node src/cli.js --count N        # N accounts → N keys, one command, nothing to answer
+```
+
+O widget Cloudflare Turnstile é emitido pelo mecanismo de navegador embutido (`src/solver.js`) em um Chrome real **com interface gráfica** — `--auto` é o **padrão** e permanece ativado, então não há captcha para colar e nenhuma pergunta de navegador no caminho. Informar `--dry` imprime o plano resolvido (count, model, route, solver, Chrome path) e sai com 0 sem gravar um arquivo ou abrir um socket:
+
+```bash
+node src/cli.js --count N --dry
+```
+
+`npm start` (ou `node src/launcher.js`) faz o mesmo a partir de um menu: escolha **1) Mint keys**, responda "How many keys?" (Enter = 10) e ele executa `node src/cli.js --auto --count N`. `proxies.txt` é usado automaticamente quando existe, caso contrário a execução é direta.
+
 ## 🛠 Início rápido
 
 ```bash
 cd inferbase-bulk-apikey
 printf 'socks5://host:port\n' > proxies.txt   # optional — without it the tool runs direct
 node src/launcher.js        # interactive: mint / verify / screen
-
 # or directly:
 node src/cli.js --count 1        # one sign-up + e-mail verify in a real Chrome
 node src/cli.js --verify-only    # re-test every key already in keys.txt
 node src/cli.js --screen         # HTTP screen of the exit list
 ```
 
-O registro exige um Chrome real, **com interface gráfica**: o widget Turnstile só é emitido ali, e o fluxo se recusa a registrar em uma saída cujo widget nunca responde. `keys.txt` só é escrito depois que uma conclusão real respondeu naquela chave.
+O registro precisa de um Chrome real **com interface gráfica**: o widget Turnstile só é emitido ali, e o fluxo se recusa a registrar em uma saída cujo widget nunca responde. `keys.txt` só é gravado depois que uma conclusão real respondeu nessa chave.
 
 ### 🖱️ O launcher
 
 `node src/launcher.js` é um menu sobre os mesmos módulos: **mint**, **verify**, **screen**, **9Router**, **settings**. As configurações persistem em `launcher.config.json`.
 
-## ✅ Verificado e funcionando — toda chave é testada
+## ✅ Verificado funcionando — toda chave é testada
 
 Medido em **2026-10-23** a partir da CLI distribuída (lista de saídas, sem WARP).
 
@@ -112,17 +125,17 @@ Medido em **2026-10-23** a partir da CLI distribuída (lista de saídas, sem WAR
 | vet de saída (HTTP) | página de login + script Turnstile + API acessível |
 | tela do Chrome (no fluxo) | uma linha cujo widget nunca é emitido é recusada **antes** de gastar uma caixa de correio |
 | registro | `POST /api/v1/auth/register` → **200** `Account created` |
-| verificação de e-mail | e-mail de `hello@inferbase.ai` → `?token=` → `POST /api/v1/auth/verify-email` → **200** `Email verified successfully.` |
+| verificação por e-mail | e-mail `hello@inferbase.ai` → `?token=` → `POST /api/v1/auth/verify-email` → **200** `Email verified successfully.` |
 | chave | `POST /api/v1/inference/keys` (X-CSRF-Token) → **201/200**, `inf_…` de 52 caracteres |
-| portão de chat | `POST /v1/chat/completions` `auto` → **200** `OK.` |
-| portão de ferramentas | esquema da ferramenta `get_time` na requisição → `tool_calls` na resposta |
-| chaves ativas | **10/10** chaves com chat-200 em uma varredura, e a CLI emitiu outra de ponta a ponta em **40 s** |
+| gate de chat | `POST /v1/chat/completions` `auto` → **200** `OK.` |
+| gate de ferramentas | esquema da ferramenta `get_time` na requisição → `tool_calls` na resposta |
+| gate ao vivo | toda chave em `keys.txt` passou por um `chat-200` ao vivo antes de ser entregue; a CLI também emite uma chave nova de ponta a ponta como autoverificação |
 
-> **Portões de qualidade.** Toda chave aqui passou por um `chat-200` ao vivo antes de ser escrita em `keys.txt`
-> (chaves mortas nunca são distribuídas). As combinações de roteador seguem a mesma regra no nível do modelo: uma entrada é
-> adicionada **somente se o modelo responder `chat-200` e puder chamar ferramentas** — um modelo sem suporte a ferramentas,
+> **Gates de qualidade.** Toda chave aqui passou por um `chat-200` ao vivo antes de ser gravada em `keys.txt`
+> (chaves mortas nunca são entregues). As combinações do roteador seguem a mesma regra no nível do modelo: uma entrada é
+> adicionada **somente se o modelo responder `chat-200` e conseguir chamar ferramentas** — um modelo sem suporte a ferramentas,
 > uma chave morta ou um provedor morto é descartado em vez de adicionado. Reexecute a etapa de verificação a qualquer momento;
-> as falhas são relatadas, nunca ocultadas.
+> falhas são relatadas, nunca escondidas.
 
 ## 🧭 Como funciona
 
@@ -135,15 +148,15 @@ inbox (one address per account)                                  a fresh address
    └─▶ live proof: POST https://api.inferbase.ai/v1/chat/completions → real content = the key is live
 ```
 
-| Etapa | Chamada | Observações |
+| Etapa | Chamada | Notas |
 | --- | --- | --- |
-| screen | a página de registro no Chrome | o widget precisa montar **e** ser emitido; nada mais é gasto em uma linha que não consegue |
-| caixa de correio | `temp.tf` (`providers=gmail`) | API pública, sem chave; o painel envia e-mail para `hello@inferbase.ai` |
-| registro | `POST /api/v1/auth/register` | `{email,password,full_name,company,turnstile_token}` — o token deve vir da mesma saída |
-| verificação | `POST /api/v1/auth/verify-email` | o e-mail carrega `?token=` |
-| login | `POST /api/v1/auth/login` | define o cookie de sessão e o `csrf_token` |
-| chave | `POST /api/v1/inference/keys` | rota de mutação → precisa de `X-CSRF-Token` (403 `CSRF token missing` sem ele) |
-| portão | `GET /v1/models` + uma conclusão | apenas um 200 real com conteúdo é mantido |
+| screen | a página de registro no Chrome | o widget deve montar **e** ser emitido; nada mais é gasto em uma linha que não consegue |
+| mailbox | `temp.tf` (`providers=gmail`) | API pública, sem chave; o painel envia e-mail para `hello@inferbase.ai` |
+| register | `POST /api/v1/auth/register` | `{email,password,full_name,company,turnstile_token}` — o token deve vir da mesma saída |
+| verify | `POST /api/v1/auth/verify-email` | o e-mail carrega `?token=` |
+| login | `POST /api/v1/auth/login` | define o cookie de sessão e `csrf_token` |
+| key | `POST /api/v1/inference/keys` | rota de mutação → precisa de `X-CSRF-Token` (403 `CSRF token missing` sem ele) |
+| gate | `GET /v1/models` + uma conclusão | somente um 200 real com conteúdo é mantido |
 
 ## ⚙️ Opções da CLI
 
@@ -158,11 +171,11 @@ node src/cli.js --help
 
 | Flag | Padrão | Significado |
 | --- | --- | --- |
-| `--count N` | `1` | contas a emitir, em série |
-| `--model <id>` | `auto` | modelo usado para o portão ao vivo |
+| `--count N` | `1` | contas a criar, serial |
+| `--model <id>` | `auto` | modelo usado para o gate ao vivo |
 | `--pool <file>` | `proxies.txt` | lista de saídas, uma linha por proxy — opcional |
-| `--tries N` | `3` | candidatos de saída triados por conta |
-| `--mint-tries N` | `2` | tentativas completas de registro (caixa de correio nova) por saída |
+| `--tries N` | `3` | saídas candidatas avaliadas por conta |
+| `--mint-tries N` | `2` | tentativas completas de registro (nova caixa de correio) por saída |
 | `--code-timeout S` | `240` | segundos para aguardar o e-mail de verificação |
 | `--keys <file>` | `keys.txt` | arquivo de chaves para `--verify-only` / `--connect-9router` |
 | `--headless` | desativado | SOMENTE DIAGNÓSTICO — o widget não será emitido |
@@ -172,7 +185,7 @@ node src/cli.js --help
 **Opcional — recomendado em escala (limites por IP, banimentos).** A ferramenta funciona sem proxy também.
 
 - **Com um pool:** passe `--pool <file>` (ou defina `INFERBASE_PROXIES`) e toda requisição — incluindo o navegador Chrome — passa por uma saída dessa lista, fail-closed.
-- **Sem um pool:** a CLI exibe o modo `direct` e conecta diretamente; registro, emissão de chave e portão permanecem inalterados.
+- **Sem um pool:** a CLI imprime o modo `direct` e conecta diretamente; registro, emissão de chave e gate permanecem inalterados.
 - A qualidade da saída decide o sucesso: a tela do Chrome no fluxo recusa uma linha cujo widget Turnstile nunca é emitido antes de gastar uma caixa de correio.
 
 ## 📄 Arquivos
@@ -180,9 +193,9 @@ node src/cli.js --help
 | Caminho | Conteúdo |
 | --- | --- |
 | `keys.txt` | uma chave verificada ao vivo por linha — ignorada pelo git |
-| `accounts.json` | e-mail / senha / chave / resultado do portão, incl. tentativas falhas |
-| `proxies.txt` | suas saídas — ignorado pelo git |
-| `out/` | log de execução, capturas de tela de falhas, ledger — ignorado pelo git |
+| `accounts.json` | e-mail / senha / chave / resultado do gate, incl. tentativas falhas |
+| `proxies.txt` | suas saídas — ignoradas pelo git |
+| `out/` | log de execução, capturas de tela de falhas, ledger — ignorados pelo git |
 
 ## 🔌 Conectar ao 9Router
 
@@ -204,19 +217,23 @@ node src/connect-omniroute.js --base http://localhost:20128 --password 123456
 
 Padrões: `--prefix inferbase`, `--base-url https://api.inferbase.ai/v1`, `--model auto`. Os modelos são servidos como `inferbase/<model id>`. A CLI pode fazer o mesmo em um único comando: `node src/cli.js --connect-omniroute`.
 
-## 🔑 O que uma chave oferece
+## 🔑 O que uma chave te dá
 
 | | |
 | --- | --- |
 | 🏢 Provedor | **Inferbase** — [inferbase.ai](https://inferbase.ai) |
-| 🎁 O que o provedor oferece | **100 requisições por dia UTC por conta** nos seus próprios modelos (o contador reinicia às 00:00 UTC); sem cartão, sem telefone |
-| 🔑 O que uma chave oferece | a lista de modelos da conta em `https://api.inferbase.ai/v1` (127 ids, `auto` escolhe um ativo) |
-| 🌐 Formato da API | compatível com OpenAI: `POST https://api.inferbase.ai/v1/chat/completions`, chamada de ferramentas incluída |
+| 🎁 O que o provedor oferece | **100 requisições por dia UTC por conta** nos próprios modelos (o contador gira às 00:00 UTC); sem cartão, sem telefone |
+| 🔑 O que uma chave te dá | a lista de modelos da conta em `https://api.inferbase.ai/v1` (127 ids, `auto` escolhe um ativo) |
+| 🌐 Formato da API | Compatível com OpenAI: `POST https://api.inferbase.ai/v1/chat/completions`, chamada de ferramentas incluída |
 | 🔒 Seus dados | apenas `inferbase.ai`, o script Turnstile e o backend de caixa de correio `temp.tf` são contatados |
+
+## ⚠️ Termos e risco de conta
+
+Esta ferramenta automatiza um fluxo de registro, então **você** é responsável pelo que ela faz: automatizar o registro de um provedor pode violar os termos de serviço desse provedor, e o nível gratuito que uma conta te concede é do provedor, que pode limitá-lo, alterá-lo ou revogá-lo a qualquer momento — por conta e por IP. Execute-a apenas para contas que você tem permissão de criar, mantenha sua lista de proxies como sua, e não trate essas chaves como capacidade de produção. Nada aqui é uma licença para contornar as regras de um provedor.
 
 ## 🐞 Problemas
 
-Se o Inferbase mudar o formato do seu cadastro, sua site key do Turnstile (`0x4AAAAAAEE8v-wpU5kytU0i`), a franquia diária de 100 requisições ou o catálogo de modelos, a ferramenta para nessa etapa e informa isso. **[Abra uma issue](../../issues)** com o comando e a saída exata.
+Se o Inferbase mudar o formato do seu registro, sua site key do Turnstile (`0x4AAAAAAEE8v-wpU5kytU0i`), a franquia diária de 100 requisições ou o catálogo de modelos, a ferramenta para nessa etapa e avisa. **[Abra uma issue](../../issues)** com o comando e a saída exata.
 
 ## 📄 Licença
 

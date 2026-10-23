@@ -21,7 +21,7 @@
 [![OmniRoute](https://img.shields.io/badge/OmniRoute-connector-8B5CF6?style=for-the-badge)](#-connect-to-omniroute)
 [![X](https://img.shields.io/badge/X-%40bigbullapp-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/bigbullapp)
 
-[🛠 Quick start](#-quick-start) · [🎁 Free tier](#-free-tier--how-much-you-get) · [🤖 Models](#-models--all-127-of-them) · [🧪 Use the API](#-how-to-use-the-api) · [✅ Verified](#-verified-working--every-key-is-tested) · [🧭 How it works](#-how-it-works) · [🔌 9Router](#-connect-to-9router) · [🔌 OmniRoute](#-connect-to-omniroute) · [⚙️ Options](#️-cli-options) · [🛰️ Proxies](#️-behind-a-proxy) · [🐞 Issues](#-issues)
+[⚡ One command](#-one-command) · [🛠 Quick start](#-quick-start) · [🎁 Free tier](#-free-tier--how-much-you-get) · [🤖 Models](#-models--all-127-of-them) · [🧪 Use the API](#-how-to-use-the-api) · [✅ Verified](#-verified-working--every-key-is-tested) · [🧭 How it works](#-how-it-works) · [🔌 9Router](#-connect-to-9router) · [🔌 OmniRoute](#-connect-to-omniroute) · [⚙️ Options](#️-cli-options) · [🛰️ Proxies](#️-behind-a-proxy) · [⚠️ Terms](#️-terms-and-account-risk) · [🐞 Issues](#-issues)
 
 </div>
 
@@ -83,6 +83,20 @@ c = OpenAI(base_url="https://api.inferbase.ai/v1", api_key="YOUR_KEY…")
 print(c.chat.completions.create(model="auto",
       messages=[{"role": "user", "content": "Say OK."}], max_tokens=16).choices[0].message.content)
 ```
+
+## ⚡ One command
+
+```bash
+node src/cli.js --count N        # N accounts → N keys, one command, nothing to answer
+```
+
+The Cloudflare Turnstile widget is minted by the embedded browser engine (`src/solver.js`) in a real **headed** Chrome — `--auto` is the **default** and stays on, so there is no captcha to paste and no browser question in the way. Naming `--dry` prints the resolved plan (count, model, route, solver, Chrome path) and exits 0 without writing a file or opening a socket:
+
+```bash
+node src/cli.js --count N --dry
+```
+
+`npm start` (or `node src/launcher.js`) does the same from a menu: pick **1) Mint keys**, answer "How many keys?" (Enter = 10) and it runs `node src/cli.js --auto --count N`. `proxies.txt` is picked up automatically when it exists, otherwise the run is direct.
 
 ## 🛠 Quick start
 
@@ -212,6 +226,10 @@ Defaults: `--prefix inferbase`, `--base-url https://api.inferbase.ai/v1`, `--mod
 | 🔑 What one key gets you | the account's model list on `https://api.inferbase.ai/v1` (127 ids, `auto` picks a live one) |
 | 🌐 API shape | OpenAI-compatible: `POST https://api.inferbase.ai/v1/chat/completions`, tool-calling included |
 | 🔒 Your data | only `inferbase.ai`, the Turnstile script and the `temp.tf` inbox backend are contacted |
+
+## ⚠️ Terms and account risk
+
+This tool automates a sign-up flow, so **you** own what it does: automating a provider's sign-up can break that provider's terms of service, and the free tier an account hands you is the provider's to throttle, change or claw back at any time — per account and per IP. Run it only for accounts you are allowed to create, keep your proxy list your own, and do not treat these keys as production capacity. Nothing here is a licence to bypass a provider's rules.
 
 ## 🐞 Issues
 
