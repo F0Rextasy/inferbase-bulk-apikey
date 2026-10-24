@@ -29,7 +29,7 @@
  *   --count N        accounts (= keys) to mint, serial                     [1]
  *   --model <id>     model used for the live gate                         [auto]
  *   --pool <file>    proxy list, one exit per line (env INFERBASE_PROXIES)  [optional]
- *   --tries N        exit candidates screened per account                  [3]
+ *   --exits N        exit candidates screened per account                  [6]
  *   --mint-tries N   full sign-up attempts (fresh mailbox + Chrome) per exit  [2]
  *   --gap MS         pause between accounts                              [20000]
  *   --timeout MS     per-request timeout (node side)                     [60000]
@@ -99,7 +99,7 @@ if (has('help') || has('h')) {
   --dry          print the resolved plan and exit (no writes, no network)
   --model <id>   model used for the live gate                            [auto]
   --pool <file>  proxy list, one exit per line (env INFERBASE_PROXIES) [optional]
-  --tries N      exit candidates screened per account                    [3]
+  --exits N      exit candidates screened per account                    [6]
   --mail-timeout S   seconds to wait for the verification mail          [240]
   --mint-tries N full sign-up attempts (fresh mailbox each) per exit      [2]
   --keys <file>  key file for --verify-only                          [keys.txt]
@@ -122,7 +122,7 @@ the INFERBASE_PROXIES env). Without a pool the tool connects DIRECTLY.
 
 const COUNT = Math.max(1, parseInt(arg('count', '1'), 10) || 1);
 const MODEL = arg('model', process.env.INFERBASE_MODEL || DEFAULT_MODEL);
-const TRIES = Math.max(1, parseInt(arg('tries', '3'), 10) || 3);
+const EXITS = Math.max(1, parseInt(arg('exits', '6'), 10) || 6);
 const GAP_MS = Math.max(0, parseInt(arg('gap', '20000'), 10) || 0);
 const MINT_TRIES = Math.max(1, parseInt(arg('mint-tries', '2'), 10) || 2);
 /** The chat gate must fail fast: a hung exit costs this per candidate model. */
@@ -379,7 +379,7 @@ async function mintOnExit(n, exit) {
 }
 
 async function attemptAccount(n, exits, seed) {
-  const limit = Math.min(TRIES, exits.length);
+  const limit = Math.min(EXITS, exits.length);
   for (let t = 0; t < limit; t++) {
     const exit = exits[(seed + t) % exits.length];
     let vet;
