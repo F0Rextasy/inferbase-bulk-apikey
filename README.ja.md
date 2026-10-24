@@ -174,7 +174,7 @@ node src/cli.js --help
 | `--count N` | `1` | 発行するアカウント数、直列 |
 | `--model <id>` | `auto` | ライブゲートに使うモデル |
 | `--pool <file>` | `proxies.txt` | 出口リスト、1 行につき 1 プロキシ — 任意 |
-| `--tries N` | `3` | アカウントごとに審査する出口候補 |
+| `--exits N` | `6` | アカウントごとに審査する出口候補 |
 | `--mint-tries N` | `2` | 出口ごとの完全なサインアップ試行（新しいメールボックス） |
 | `--code-timeout S` | `240` | 検証メールを待つ秒数 |
 | `--keys <file>` | `keys.txt` | `--verify-only` / `--connect-9router` 用のキーファイル |

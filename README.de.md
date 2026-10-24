@@ -174,7 +174,7 @@ node src/cli.js --help
 | `--count N` | `1` | Anzahl der zu erzeugenden Konten, seriell |
 | `--model <id>` | `auto` | Modell, das für das Live-Gate verwendet wird |
 | `--pool <file>` | `proxies.txt` | Exit-Liste, eine Zeile pro Proxy — optional |
-| `--tries N` | `3` | Exit-Kandidaten, die pro Konto geprüft werden |
+| `--exits N` | `6` | Exit-Kandidaten, die pro Konto geprüft werden |
 | `--mint-tries N` | `2` | vollständige Registrierungsversuche (frisches Postfach) pro Exit |
 | `--code-timeout S` | `240` | Sekunden, die auf die Verifizierungs-Mail gewartet wird |
 | `--keys <file>` | `keys.txt` | Schlüsseldatei für `--verify-only` / `--connect-9router` |

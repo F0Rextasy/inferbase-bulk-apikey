@@ -173,7 +173,7 @@ node src/cli.js --help
 | `--count N` | `1` | 要生成的账户数量，串行 |
 | `--model <id>` | `auto` | 用于实时闸门的模型 |
 | `--pool <file>` | `proxies.txt` | 出口列表，每行一个代理 —— 可选 |
-| `--tries N` | `3` | 每个账户筛选的出口候选数 |
+| `--exits N` | `6` | 每个账户筛选的出口候选数 |
 | `--mint-tries N` | `2` | 每个出口的完整注册尝试次数（全新邮箱） |
 | `--code-timeout S` | `240` | 等待验证邮件的秒数 |
 | `--keys <file>` | `keys.txt` | 用于 `--verify-only` / `--connect-9router` 的密钥文件 |

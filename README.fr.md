@@ -174,7 +174,7 @@ node src/cli.js --help
 | `--count N` | `1` | comptes à générer, en série |
 | `--model <id>` | `auto` | modèle utilisé pour la barrière en direct |
 | `--pool <file>` | `proxies.txt` | liste de sortie, une ligne par proxy — facultatif |
-| `--tries N` | `3` | candidats de sortie filtrés par compte |
+| `--exits N` | `6` | candidats de sortie filtrés par compte |
 | `--mint-tries N` | `2` | tentatives d'inscription complètes (nouvelle boîte mail) par sortie |
 | `--code-timeout S` | `240` | secondes d'attente du mail de vérification |
 | `--keys <file>` | `keys.txt` | fichier de clés pour `--verify-only` / `--connect-9router` |

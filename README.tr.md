@@ -174,7 +174,7 @@ node src/cli.js --help
 | `--count N` | `1` | üretilecek hesap sayısı, seri |
 | `--model <id>` | `auto` | canlı kapı için kullanılan model |
 | `--pool <file>` | `proxies.txt` | çıkış listesi, proxy başına bir satır — isteğe bağlı |
-| `--tries N` | `3` | hesap başına taranan çıkış adayı |
+| `--exits N` | `6` | hesap başına taranan çıkış adayı |
 | `--mint-tries N` | `2` | çıkış başına tam kayıt denemesi (yeni posta kutusu) |
 | `--code-timeout S` | `240` | doğrulama postası için beklenecek saniye |
 | `--keys <file>` | `keys.txt` | `--verify-only` / `--connect-9router` için anahtar dosyası |

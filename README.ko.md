@@ -174,7 +174,7 @@ node src/cli.js --help
 | `--count N` | `1` | 발급할 계정 수, 순차 실행 |
 | `--model <id>` | `auto` | 라이브 게이트에 사용할 모델 |
 | `--pool <file>` | `proxies.txt` | 출구 목록, 한 줄에 프록시 하나 — 선택 사항 |
-| `--tries N` | `3` | 계정당 스크린할 출구 후보 수 |
+| `--exits N` | `6` | 계정당 스크린할 출구 후보 수 |
 | `--mint-tries N` | `2` | 출구당 전체 가입 시도(새 메일함) 수 |
 | `--code-timeout S` | `240` | 인증 메일을 기다리는 시간(초) |
 | `--keys <file>` | `keys.txt` | `--verify-only` / `--connect-9router`용 키 파일 |

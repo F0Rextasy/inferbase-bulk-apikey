@@ -174,7 +174,7 @@ node src/cli.js --help
 | `--count N` | `1` | accounts to mint, serial |
 | `--model <id>` | `auto` | model used for the live gate |
 | `--pool <file>` | `proxies.txt` | exit list, one line per proxy — optional |
-| `--tries N` | `3` | exit candidates screened per account |
+| `--exits N` | `6` | exit candidates screened per account |
 | `--mint-tries N` | `2` | full sign-up attempts (fresh mailbox) per exit |
 | `--code-timeout S` | `240` | seconds to wait for the verification mail |
 | `--keys <file>` | `keys.txt` | key file for `--verify-only` / `--connect-9router` |

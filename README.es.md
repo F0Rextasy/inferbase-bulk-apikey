@@ -174,7 +174,7 @@ node src/cli.js --help
 | `--count N` | `1` | cuentas a generar, en serie |
 | `--model <id>` | `auto` | modelo usado para la verificación en vivo |
 | `--pool <file>` | `proxies.txt` | lista de salidas, una línea por proxy — opcional |
-| `--tries N` | `3` | salidas candidatas seleccionadas por cuenta |
+| `--exits N` | `6` | salidas candidatas seleccionadas por cuenta |
 | `--mint-tries N` | `2` | intentos de registro completos (buzón nuevo) por salida |
 | `--code-timeout S` | `240` | segundos a esperar el correo de verificación |
 | `--keys <file>` | `keys.txt` | archivo de claves para `--verify-only` / `--connect-9router` |
